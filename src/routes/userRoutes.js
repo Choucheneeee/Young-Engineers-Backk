@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const UserController = require("../controllers/userController");
+const { auth, adminAuth } = require("../middleware/auth");
 
-// Example Route: Get all users
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
+// Register a user
+router.post("/register", UserController.registerUser);
+
+// Login user
+router.post("/login", UserController.loginUser);
+
+// Get all users (Admin only)
+router.get("/", adminAuth, UserController.getAllUsers);
+
+// Delete a user by ID (Admin only)
+router.delete("/:id", adminAuth, UserController.deleteUser);
 
 module.exports = router;
