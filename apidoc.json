@@ -1,9 +1,12 @@
 {
-    "name": "Young Engineers Backk",
-    "version": "1.0.0",
-    "description": "API documentation for Young Engineers Backend",
-    "title": "API Docs",
-    "url": "http://localhost:5000",
-    "sampleUrl": "http://localhost:5000"
+  "name": "Young Engineers Backk",
+  "version": "1.0.0",
+  "description": "API documentation for Young Engineers Backend",
+  "title": "API Docs",
+  "url": "http://localhost:5000",
+  "sampleUrl": "http://localhost:5000",
+  "apidoc": {
+    "api": "src/routes/**/*.js",
+    "doc": "apidoc"
   }
-  
+}
