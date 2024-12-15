@@ -17,6 +17,9 @@ router.get("/date/:date", paymentsController.getPaymentsByDate);
 // Update a payment record
 router.put("/:id", paymentsController.updatePayment);
 
+// edit a payment record
+router.get("/:id", paymentsController.getPaymentById);
+
 // Delete a payment record by ID
 router.delete("/:id", paymentsController.deletePayment);
 

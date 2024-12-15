@@ -110,6 +110,23 @@ const deletePayment = async (req, res) => {
   }
 };
 
+// Get payment by ID
+const getPaymentById = async (req, res) => {
+  try {
+    const paymentId = req.params.id; // Get the payment ID from the request parameters
+    const payment = await Payment.findById(paymentId).populate("childId"); // Fetch the payment by its ID and populate the childId
+
+    if (!payment) {
+      return res.status(404).json({ message: "Payment not found" }); // Handle the case where the payment doesn't exist
+    }
+
+    res.status(200).json(payment); // Send the payment data as the response
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" }); // Handle errors
+  }
+};
+
 module.exports = {
   createPayment,
   getAllPayments,
@@ -117,4 +134,5 @@ module.exports = {
   getPaymentsByDate,
   updatePayment,
   deletePayment,
+  getPaymentById,
 };
