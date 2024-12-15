@@ -8,7 +8,8 @@ const attendanceController = require("../controllers/attendanceController");
  * @apiGroup Attendance
  * @apiBody {String} childId The ID of the child attending the session.
  * @apiBody {String} groupId The ID of the group for which attendance is being recorded.
- * @apiBody {Date} sessionDate The date of the session.
+ * @apiBody {Date} date The date of the session (ISODate format).
+ * @apiBody {String="present","absent"} status The attendance status.
  * 
  * @apiSuccess {Object} attendance The created attendance record.
  * @apiSuccessExample {json} Success Response:
@@ -17,7 +18,8 @@ const attendanceController = require("../controllers/attendanceController");
  *    "id": "1",
  *    "childId": "12345",
  *    "groupId": "1",
- *    "sessionDate": "2024-12-14"
+ *    "date": "2024-12-14T00:00:00.000Z",
+ *    "status": "present"
  *  }
  * 
  * @apiError (400) ValidationError Some fields are missing or invalid.
@@ -37,13 +39,15 @@ router.post("/", attendanceController.createAttendance);
  *      "id": "1",
  *      "childId": "12345",
  *      "groupId": "1",
- *      "sessionDate": "2024-12-14"
+ *      "date": "2024-12-14T00:00:00.000Z",
+ *      "status": "present"
  *    },
  *    {
  *      "id": "2",
  *      "childId": "67890",
  *      "groupId": "2",
- *      "sessionDate": "2024-12-14"
+ *      "date": "2024-12-14T00:00:00.000Z",
+ *      "status": "absent"
  *    }
  *  ]
  * 
@@ -65,7 +69,8 @@ router.get("/", attendanceController.getAllAttendance);
  *      "id": "1",
  *      "childId": "12345",
  *      "groupId": "1",
- *      "sessionDate": "2024-12-14"
+ *      "date": "2024-12-14T00:00:00.000Z",
+ *      "status": "present"
  *    }
  *  ]
  * 
@@ -87,7 +92,8 @@ router.get("/child/:childId", attendanceController.getAttendanceByChild);
  *      "id": "1",
  *      "childId": "12345",
  *      "groupId": "1",
- *      "sessionDate": "2024-12-14"
+ *      "date": "2024-12-14T00:00:00.000Z",
+ *      "status": "present"
  *    }
  *  ]
  * 
@@ -102,7 +108,8 @@ router.get("/group/:groupId", attendanceController.getAttendanceByGroup);
  * @apiParam {String} id The ID of the attendance record to update.
  * @apiBody {String} childId The ID of the child attending the session.
  * @apiBody {String} groupId The ID of the group for which attendance is being recorded.
- * @apiBody {Date} sessionDate The date of the session.
+ * @apiBody {Date} date The updated date of the session.
+ * @apiBody {String="present","absent"} status The updated attendance status.
  * 
  * @apiSuccess {Object} attendance The updated attendance record.
  * @apiSuccessExample {json} Success Response:
@@ -111,7 +118,8 @@ router.get("/group/:groupId", attendanceController.getAttendanceByGroup);
  *    "id": "1",
  *    "childId": "12345",
  *    "groupId": "1",
- *    "sessionDate": "2024-12-15"
+ *    "date": "2024-12-15T00:00:00.000Z",
+ *    "status": "absent"
  *  }
  * 
  * @apiError (404) NotFound Attendance record not found with the specified ID.

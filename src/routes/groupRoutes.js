@@ -6,18 +6,21 @@ const groupController = require("../controllers/groupController");
  * @api {post} /api/groups Create a new group
  * @apiName CreateGroup
  * @apiGroup Group
- * @apiBody {String} groupName The name of the group.
- * @apiBody {String} description A brief description of the group.
- * @apiBody {String[]} members List of member IDs to be added to the group.
+ * 
+ * @apiBody {String} name The name of the group.
+ * @apiBody {String} schedule The schedule of the group (e.g., "Monday 10:00 AM - 12:00 PM").
+ * @apiBody {String} programId The ID of the associated program.
  * 
  * @apiSuccess {Object} group The created group object.
  * @apiSuccessExample {json} Success Response:
  *  HTTP/1.1 201 Created
  *  {
  *    "id": "1",
- *    "groupName": "Engineering Team",
- *    "description": "Group for the engineering team",
- *    "members": ["123", "456", "789"]
+ *    "name": "Group A",
+ *    "schedule": "Monday 10:00 AM - 12:00 PM",
+ *    "programId": "64ab6c8e65a7b611e3c2f6e1",
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (400) ValidationError Some fields are missing or invalid.
@@ -35,15 +38,19 @@ router.post("/", groupController.createGroup);
  *  [
  *    {
  *      "id": "1",
- *      "groupName": "Engineering Team",
- *      "description": "Group for the engineering team",
- *      "members": ["123", "456", "789"]
+ *      "name": "Group A",
+ *      "schedule": "Monday 10:00 AM - 12:00 PM",
+ *      "programId": "64ab6c8e65a7b611e3c2f6e1",
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
  *    },
  *    {
  *      "id": "2",
- *      "groupName": "Marketing Team",
- *      "description": "Group for the marketing team",
- *      "members": ["101", "102"]
+ *      "name": "Group B",
+ *      "schedule": "Wednesday 2:00 PM - 4:00 PM",
+ *      "programId": "64ac8b5d83e9a112e8f1c2f9",
+ *      "createdAt": "2024-12-14T11:00:00.000Z",
+ *      "updatedAt": "2024-12-14T11:00:00.000Z"
  *    }
  *  ]
  * 
@@ -57,14 +64,16 @@ router.get("/", groupController.getAllGroups);
  * @apiGroup Group
  * @apiParam {String} id The ID of the group to retrieve.
  * 
- * @apiSuccess {Object} group The requested group.
+ * @apiSuccess {Object} group The requested group object.
  * @apiSuccessExample {json} Success Response:
  *  HTTP/1.1 200 OK
  *  {
  *    "id": "1",
- *    "groupName": "Engineering Team",
- *    "description": "Group for the engineering team",
- *    "members": ["123", "456", "789"]
+ *    "name": "Group A",
+ *    "schedule": "Monday 10:00 AM - 12:00 PM",
+ *    "programId": "64ab6c8e65a7b611e3c2f6e1",
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Group not found with the specified ID.
@@ -76,18 +85,20 @@ router.get("/:id", groupController.getGroupById);
  * @apiName UpdateGroup
  * @apiGroup Group
  * @apiParam {String} id The ID of the group to update.
- * @apiBody {String} groupName The updated name of the group.
- * @apiBody {String} description The updated description of the group.
- * @apiBody {String[]} members List of updated member IDs.
+ * @apiBody {String} name The updated name of the group.
+ * @apiBody {String} schedule The updated schedule of the group.
+ * @apiBody {String} programId The updated ID of the associated program.
  * 
  * @apiSuccess {Object} group The updated group object.
  * @apiSuccessExample {json} Success Response:
  *  HTTP/1.1 200 OK
  *  {
  *    "id": "1",
- *    "groupName": "Engineering Team",
- *    "description": "Updated description for engineering team",
- *    "members": ["123", "456"]
+ *    "name": "Updated Group A",
+ *    "schedule": "Monday 11:00 AM - 1:00 PM",
+ *    "programId": "64ab6c8e65a7b611e3c2f6e1",
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:30:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Group not found with the specified ID.

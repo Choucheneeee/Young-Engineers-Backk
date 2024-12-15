@@ -6,9 +6,11 @@ const childController = require("../controllers/childController");
  * @api {post} /api/children Create a new child
  * @apiName CreateChild
  * @apiGroup Child
- * @apiBody {String} firstName The first name of the child.
- * @apiBody {String} lastName The last name of the child.
- * @apiBody {Date} birthDate The birth date of the child.
+ * 
+ * @apiBody {String} name The full name of the child.
+ * @apiBody {Date} dateOfBirth The date of birth of the child (ISODate format).
+ * @apiBody {String} schoolLevel The school level of the child (optional).
+ * @apiBody {String} groupId The ID of the group the child belongs to.
  * @apiBody {String} parentId The ID of the child's parent.
  * 
  * @apiSuccess {Object} child The created child object.
@@ -16,10 +18,14 @@ const childController = require("../controllers/childController");
  *  HTTP/1.1 201 Created
  *  {
  *    "id": "1",
- *    "firstName": "John",
- *    "lastName": "Doe",
- *    "birthDate": "2015-05-15",
- *    "parentId": "12345"
+ *    "name": "John Doe",
+ *    "dateOfBirth": "2015-05-15",
+ *    "schoolLevel": "Primary",
+ *    "groupId": "12345",
+ *    "parentId": "54321",
+ *    "stickers": [],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (400) ValidationError Some fields are missing or invalid.
@@ -37,17 +43,19 @@ router.post("/", childController.createChild);
  *  [
  *    {
  *      "id": "1",
- *      "firstName": "John",
- *      "lastName": "Doe",
- *      "birthDate": "2015-05-15",
- *      "parentId": "12345"
- *    },
- *    {
- *      "id": "2",
- *      "firstName": "Jane",
- *      "lastName": "Doe",
- *      "birthDate": "2016-07-20",
- *      "parentId": "12346"
+ *      "name": "John Doe",
+ *      "dateOfBirth": "2015-05-15",
+ *      "schoolLevel": "Primary",
+ *      "groupId": "12345",
+ *      "parentId": "54321",
+ *      "stickers": [
+ *        {
+ *          "model": "Carrousel",
+ *          "earnedAt": "2024-01-01T00:00:00.000Z"
+ *        }
+ *      ],
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
  *    }
  *  ]
  * 
@@ -66,10 +74,19 @@ router.get("/", childController.getChildren);
  *  HTTP/1.1 200 OK
  *  {
  *    "id": "1",
- *    "firstName": "John",
- *    "lastName": "Doe",
- *    "birthDate": "2015-05-15",
- *    "parentId": "12345"
+ *    "name": "John Doe",
+ *    "dateOfBirth": "2015-05-15",
+ *    "schoolLevel": "Primary",
+ *    "groupId": "12345",
+ *    "parentId": "54321",
+ *    "stickers": [
+ *      {
+ *        "model": "Carrousel",
+ *        "earnedAt": "2024-01-01T00:00:00.000Z"
+ *      }
+ *    ],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Child not found with the specified ID.
@@ -81,9 +98,10 @@ router.get("/:id", childController.getChildById);
  * @apiName UpdateChild
  * @apiGroup Child
  * @apiParam {String} id The ID of the child to update.
- * @apiBody {String} firstName The updated first name of the child.
- * @apiBody {String} lastName The updated last name of the child.
- * @apiBody {Date} birthDate The updated birth date of the child.
+ * @apiBody {String} name The updated full name of the child.
+ * @apiBody {Date} dateOfBirth The updated date of birth of the child.
+ * @apiBody {String} schoolLevel The updated school level of the child (optional).
+ * @apiBody {String} groupId The updated ID of the group the child belongs to.
  * @apiBody {String} parentId The updated ID of the child's parent.
  * 
  * @apiSuccess {Object} child The updated child object.
@@ -91,10 +109,14 @@ router.get("/:id", childController.getChildById);
  *  HTTP/1.1 200 OK
  *  {
  *    "id": "1",
- *    "firstName": "John",
- *    "lastName": "Doe",
- *    "birthDate": "2015-05-15",
- *    "parentId": "12345"
+ *    "name": "John Doe",
+ *    "dateOfBirth": "2015-05-15",
+ *    "schoolLevel": "Secondary",
+ *    "groupId": "12345",
+ *    "parentId": "54321",
+ *    "stickers": [],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:30:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Child not found with the specified ID.

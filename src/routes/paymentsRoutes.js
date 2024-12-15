@@ -6,11 +6,11 @@ const paymentsController = require("../controllers/paymentsController");
  * @api {post} /api/payments Create a new payment record
  * @apiName CreatePayment
  * @apiGroup Payment
+ * 
  * @apiBody {String} childId The ID of the child making the payment.
  * @apiBody {Number} amount The amount of the payment.
- * @apiBody {String} paymentDate The date of the payment (in YYYY-MM-DD format).
- * @apiBody {String} paymentMethod The method of payment (e.g., credit card, cash, etc.).
- * @apiBody {String} description A description for the payment (optional).
+ * @apiBody {Date} date The date of the payment (ISODate format).
+ * @apiBody {String="cash","credit card","bank transfer"} paymentMethod The method of payment.
  * 
  * @apiSuccess {Object} payment The created payment record.
  * @apiSuccessExample {json} Success Response:
@@ -19,9 +19,10 @@ const paymentsController = require("../controllers/paymentsController");
  *    "id": "1",
  *    "childId": "12345",
  *    "amount": 100.00,
- *    "paymentDate": "2024-01-01",
+ *    "date": "2024-01-01T00:00:00.000Z",
  *    "paymentMethod": "credit card",
- *    "description": "Payment for program enrollment"
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (400) ValidationError Some fields are missing or invalid.
@@ -41,17 +42,10 @@ router.post("/", paymentsController.createPayment);
  *      "id": "1",
  *      "childId": "12345",
  *      "amount": 100.00,
- *      "paymentDate": "2024-01-01",
+ *      "date": "2024-01-01T00:00:00.000Z",
  *      "paymentMethod": "credit card",
- *      "description": "Payment for program enrollment"
- *    },
- *    {
- *      "id": "2",
- *      "childId": "67890",
- *      "amount": 150.00,
- *      "paymentDate": "2024-02-01",
- *      "paymentMethod": "cash",
- *      "description": "Payment for tuition"
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
  *    }
  *  ]
  * 
@@ -63,7 +57,7 @@ router.get("/", paymentsController.getAllPayments);
  * @api {get} /api/payments/child/:childId Get payments for a specific child
  * @apiName GetPaymentsByChild
  * @apiGroup Payment
- * @apiParam {String} childId The ID of the child.
+ * @apiParam {String} childId The ID of the child whose payments are to be retrieved.
  * 
  * @apiSuccess {Object[]} payments List of payments made by the specified child.
  * @apiSuccessExample {json} Success Response:
@@ -73,9 +67,10 @@ router.get("/", paymentsController.getAllPayments);
  *      "id": "1",
  *      "childId": "12345",
  *      "amount": 100.00,
- *      "paymentDate": "2024-01-01",
+ *      "date": "2024-01-01T00:00:00.000Z",
  *      "paymentMethod": "credit card",
- *      "description": "Payment for program enrollment"
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
  *    }
  *  ]
  * 
@@ -87,7 +82,7 @@ router.get("/child/:childId", paymentsController.getPaymentsByChild);
  * @api {get} /api/payments/date/:date Get payments for a specific date
  * @apiName GetPaymentsByDate
  * @apiGroup Payment
- * @apiParam {String} date The date of the payment (in YYYY-MM-DD format).
+ * @apiParam {String} date The date of the payments to retrieve (ISODate format).
  * 
  * @apiSuccess {Object[]} payments List of payments made on the specified date.
  * @apiSuccessExample {json} Success Response:
@@ -97,9 +92,10 @@ router.get("/child/:childId", paymentsController.getPaymentsByChild);
  *      "id": "1",
  *      "childId": "12345",
  *      "amount": 100.00,
- *      "paymentDate": "2024-01-01",
+ *      "date": "2024-01-01T00:00:00.000Z",
  *      "paymentMethod": "credit card",
- *      "description": "Payment for program enrollment"
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
  *    }
  *  ]
  * 
@@ -111,12 +107,12 @@ router.get("/date/:date", paymentsController.getPaymentsByDate);
  * @api {put} /api/payments/:id Update a payment record
  * @apiName UpdatePayment
  * @apiGroup Payment
- * @apiParam {String} id The unique ID of the payment record.
+ * @apiParam {String} id The ID of the payment record to update.
+ * 
  * @apiBody {String} childId The ID of the child making the payment.
  * @apiBody {Number} amount The updated amount of the payment.
- * @apiBody {String} paymentDate The updated date of the payment (in YYYY-MM-DD format).
- * @apiBody {String} paymentMethod The updated method of payment.
- * @apiBody {String} description The updated description for the payment (optional).
+ * @apiBody {Date} date The updated date of the payment (ISODate format).
+ * @apiBody {String="cash","credit card","bank transfer"} paymentMethod The updated method of payment.
  * 
  * @apiSuccess {Object} payment The updated payment record.
  * @apiSuccessExample {json} Success Response:
@@ -125,9 +121,10 @@ router.get("/date/:date", paymentsController.getPaymentsByDate);
  *    "id": "1",
  *    "childId": "12345",
  *    "amount": 150.00,
- *    "paymentDate": "2024-01-15",
- *    "paymentMethod": "credit card",
- *    "description": "Updated payment for program"
+ *    "date": "2024-01-15T00:00:00.000Z",
+ *    "paymentMethod": "bank transfer",
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:30:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Payment record not found.
@@ -135,10 +132,10 @@ router.get("/date/:date", paymentsController.getPaymentsByDate);
 router.put("/:id", paymentsController.updatePayment);
 
 /**
- * @api {delete} /api/payments/:id Delete a payment record by ID
+ * @api {delete} /api/payments/:id Delete a payment record
  * @apiName DeletePayment
  * @apiGroup Payment
- * @apiParam {String} id The unique ID of the payment record to delete.
+ * @apiParam {String} id The ID of the payment record to delete.
  * 
  * @apiSuccess {String} message Success message.
  * @apiSuccessExample {json} Success Response:

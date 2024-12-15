@@ -6,20 +6,29 @@ const programController = require("../controllers/programController");
  * @api {post} /api/programs Create a new program
  * @apiName CreateProgram
  * @apiGroup Program
+ * 
  * @apiBody {String} name The name of the program.
- * @apiBody {String} description A description of the program.
- * @apiBody {String} start_date The start date of the program (in YYYY-MM-DD format).
- * @apiBody {String} end_date The end date of the program (in YYYY-MM-DD format).
+ * @apiBody {String} duration The duration of the program (e.g., "36 weeks").
+ * @apiBody {Object[]} stages List of stages in the program.
+ * @apiBody {String} stages.name The name of the stage.
+ * @apiBody {String} stages.description The description of the stage.
  * 
  * @apiSuccess {Object} program The created program object.
  * @apiSuccessExample {json} Success Response:
  *  HTTP/1.1 201 Created
  *  {
  *    "id": "1",
- *    "name": "Program 1",
- *    "description": "This is a sample program.",
- *    "start_date": "2024-01-01",
- *    "end_date": "2024-12-31"
+ *    "name": "Bricks Challenge",
+ *    "duration": "36 weeks",
+ *    "stages": [
+ *      {
+ *        "name": "Stage 1",
+ *        "description": "Introduction to robotics.",
+ *        "completedBy": []
+ *      }
+ *    ],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (400) ValidationError Some fields are missing or invalid.
@@ -37,17 +46,17 @@ router.post("/", programController.createProgram);
  *  [
  *    {
  *      "id": "1",
- *      "name": "Program 1",
- *      "description": "This is a sample program.",
- *      "start_date": "2024-01-01",
- *      "end_date": "2024-12-31"
- *    },
- *    {
- *      "id": "2",
- *      "name": "Program 2",
- *      "description": "Another program example.",
- *      "start_date": "2024-02-01",
- *      "end_date": "2024-11-30"
+ *      "name": "Bricks Challenge",
+ *      "duration": "36 weeks",
+ *      "stages": [
+ *        {
+ *          "name": "Stage 1",
+ *          "description": "Introduction to robotics.",
+ *          "completedBy": []
+ *        }
+ *      ],
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
  *    }
  *  ]
  * 
@@ -61,15 +70,22 @@ router.get("/", programController.getAllPrograms);
  * @apiGroup Program
  * @apiParam {String} id The unique ID of the program.
  * 
- * @apiSuccess {Object} program The program object.
+ * @apiSuccess {Object} program The requested program.
  * @apiSuccessExample {json} Success Response:
  *  HTTP/1.1 200 OK
  *  {
  *    "id": "1",
- *    "name": "Program 1",
- *    "description": "This is a sample program.",
- *    "start_date": "2024-01-01",
- *    "end_date": "2024-12-31"
+ *    "name": "Bricks Challenge",
+ *    "duration": "36 weeks",
+ *    "stages": [
+ *      {
+ *        "name": "Stage 1",
+ *        "description": "Introduction to robotics.",
+ *        "completedBy": []
+ *      }
+ *    ],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Program not found.
@@ -82,19 +98,27 @@ router.get("/:id", programController.getProgramById);
  * @apiGroup Program
  * @apiParam {String} id The unique ID of the program.
  * @apiBody {String} name The updated name of the program.
- * @apiBody {String} description The updated description of the program.
- * @apiBody {String} start_date The updated start date (in YYYY-MM-DD format).
- * @apiBody {String} end_date The updated end date (in YYYY-MM-DD format).
+ * @apiBody {String} duration The updated duration of the program.
+ * @apiBody {Object[]} stages The updated stages of the program.
+ * @apiBody {String} stages.name The updated name of the stage.
+ * @apiBody {String} stages.description The updated description of the stage.
  * 
  * @apiSuccess {Object} program The updated program object.
  * @apiSuccessExample {json} Success Response:
  *  HTTP/1.1 200 OK
  *  {
  *    "id": "1",
- *    "name": "Updated Program Name",
- *    "description": "Updated description.",
- *    "start_date": "2024-01-01",
- *    "end_date": "2024-12-31"
+ *    "name": "Updated Bricks Challenge",
+ *    "duration": "40 weeks",
+ *    "stages": [
+ *      {
+ *        "name": "Updated Stage 1",
+ *        "description": "Updated introduction to robotics.",
+ *        "completedBy": []
+ *      }
+ *    ],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:30:00.000Z"
  *  }
  * 
  * @apiError (404) NotFound Program not found.
