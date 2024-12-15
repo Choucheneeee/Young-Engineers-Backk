@@ -13,6 +13,7 @@ const groupRoutes = require("./routes/groupRoutes");
 const programRoutes = require("./routes/programRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const paymentsRoutes = require("./routes/paymentsRoutes");
+const statisticsRoutes = require("./routes/statisticsRoutes");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/groups", groupRoutes);
 app.use("/api/programs", programRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/payments", paymentsRoutes);
+app.use("/api/statistics", statisticsRoutes);
 
 // Export app
 module.exports = app;
