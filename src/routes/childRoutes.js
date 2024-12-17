@@ -2,19 +2,142 @@ const express = require("express");
 const router = express.Router();
 const childController = require("../controllers/childController");
 
-// Create a new child
+/**
+ * @api {post} /api/children Create a new child
+ * @apiName CreateChild
+ * @apiGroup Child
+ * 
+ * @apiBody {String} name The full name of the child.
+ * @apiBody {Date} dateOfBirth The date of birth of the child (ISODate format).
+ * @apiBody {String} schoolLevel The school level of the child (optional).
+ * @apiBody {String} groupId The ID of the group the child belongs to.
+ * @apiBody {String} parentId The ID of the child's parent.
+ * 
+ * @apiSuccess {Object} child The created child object.
+ * @apiSuccessExample {json} Success Response:
+ *  HTTP/1.1 201 Created
+ *  {
+ *    "id": "1",
+ *    "name": "John Doe",
+ *    "dateOfBirth": "2015-05-15",
+ *    "schoolLevel": "Primary",
+ *    "groupId": "12345",
+ *    "parentId": "54321",
+ *    "stickers": [],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
+ *  }
+ * 
+ * @apiError (400) ValidationError Some fields are missing or invalid.
+ */
 router.post("/", childController.createChild);
 
-// Get all children
+/**
+ * @api {get} /api/children Get all children
+ * @apiName GetChildren
+ * @apiGroup Child
+ * 
+ * @apiSuccess {Object[]} children List of all children.
+ * @apiSuccessExample {json} Success Response:
+ *  HTTP/1.1 200 OK
+ *  [
+ *    {
+ *      "id": "1",
+ *      "name": "John Doe",
+ *      "dateOfBirth": "2015-05-15",
+ *      "schoolLevel": "Primary",
+ *      "groupId": "12345",
+ *      "parentId": "54321",
+ *      "stickers": [
+ *        {
+ *          "model": "Carrousel",
+ *          "earnedAt": "2024-01-01T00:00:00.000Z"
+ *        }
+ *      ],
+ *      "createdAt": "2024-12-14T10:00:00.000Z",
+ *      "updatedAt": "2024-12-14T10:00:00.000Z"
+ *    }
+ *  ]
+ * 
+ * @apiError (500) InternalServerError There was a problem fetching the children.
+ */
 router.get("/", childController.getChildren);
 
-// Get a specific child by ID
+/**
+ * @api {get} /api/children/:id Get a specific child by ID
+ * @apiName GetChildById
+ * @apiGroup Child
+ * @apiParam {String} id The ID of the child to retrieve.
+ * 
+ * @apiSuccess {Object} child The requested child object.
+ * @apiSuccessExample {json} Success Response:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "id": "1",
+ *    "name": "John Doe",
+ *    "dateOfBirth": "2015-05-15",
+ *    "schoolLevel": "Primary",
+ *    "groupId": "12345",
+ *    "parentId": "54321",
+ *    "stickers": [
+ *      {
+ *        "model": "Carrousel",
+ *        "earnedAt": "2024-01-01T00:00:00.000Z"
+ *      }
+ *    ],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:00:00.000Z"
+ *  }
+ * 
+ * @apiError (404) NotFound Child not found with the specified ID.
+ */
 router.get("/:id", childController.getChildById);
 
-// Update a child by ID
+/**
+ * @api {put} /api/children/:id Update a child by ID
+ * @apiName UpdateChild
+ * @apiGroup Child
+ * @apiParam {String} id The ID of the child to update.
+ * @apiBody {String} name The updated full name of the child.
+ * @apiBody {Date} dateOfBirth The updated date of birth of the child.
+ * @apiBody {String} schoolLevel The updated school level of the child (optional).
+ * @apiBody {String} groupId The updated ID of the group the child belongs to.
+ * @apiBody {String} parentId The updated ID of the child's parent.
+ * 
+ * @apiSuccess {Object} child The updated child object.
+ * @apiSuccessExample {json} Success Response:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "id": "1",
+ *    "name": "John Doe",
+ *    "dateOfBirth": "2015-05-15",
+ *    "schoolLevel": "Secondary",
+ *    "groupId": "12345",
+ *    "parentId": "54321",
+ *    "stickers": [],
+ *    "createdAt": "2024-12-14T10:00:00.000Z",
+ *    "updatedAt": "2024-12-14T10:30:00.000Z"
+ *  }
+ * 
+ * @apiError (404) NotFound Child not found with the specified ID.
+ */
 router.put("/:id", childController.updateChild);
 
-// Delete a child by ID
+/**
+ * @api {delete} /api/children/:id Delete a child by ID
+ * @apiName DeleteChild
+ * @apiGroup Child
+ * @apiParam {String} id The ID of the child to delete.
+ * 
+ * @apiSuccess {String} message Success message.
+ * @apiSuccessExample {json} Success Response:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "message": "Child deleted successfully"
+ *  }
+ * 
+ * @apiError (404) NotFound Child not found with the specified ID.
+ */
 router.delete("/:id", childController.deleteChild);
 
 module.exports = router;
