@@ -131,6 +131,7 @@ router.get("/date/:date", paymentsController.getPaymentsByDate);
  */
 router.put("/:id", paymentsController.updatePayment);
 
+
 /**
  * @api {delete} /api/payments/:id Delete a payment record
  * @apiName DeletePayment
@@ -146,6 +147,12 @@ router.put("/:id", paymentsController.updatePayment);
  * 
  * @apiError (404) NotFound Payment record not found.
  */
+
+// edit a payment record
+router.get("/:id", paymentsController.getPaymentById);
+
+// Delete a payment record by ID
+
 router.delete("/:id", paymentsController.deletePayment);
 
 module.exports = router;
