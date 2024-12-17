@@ -3,9 +3,32 @@
 This is the backend for the **YEngineers**, built with **MongoDB**  **Express.js** and **ReactJS** **Node.js**. The application helps administrators manage children, parents, groups, programs, attendance, and payments for educational activities in a structured and efficient way.
 
 ---
+
+
+## Project Timeline
+
+This project was completed within an impressive 12-hour timeframe through efficient collaboration and a clear division of responsibilities:
+
+**Frontend Development:**
+
+
+    -Ahmed Baya: Responsible for UI/UX design and implementation of specific frontend components and pages.
+    -Dheker Kraiem: Contributed to UI/UX design and developed additional frontend pages.
+**Backend Development (MVC Architecture) and Partial Frontend**:
+
+    -Rayen Ben Hassen: Implemented the backend logic using the MVC architecture and made 
+    the frontend dynamic by integrating backend data.
+    -Chouchen Med Amine: Developed core backend features following the MVC pattern, 
+    dynamically integrated frontend components with backend data, and ensured seamless connectivity.
+    
+**Deployment**:
+
+        Chouchen Med Amine: Managed and executed the deployment of the full-stack application.(Frontend,Backend,Database)
+
 ##  Live Demo
-Access the application here: https://young-engineers-front-5lu4qv1ri-choucheneeees-projects.vercel.app/login
+Access the application here: https://young-engineers-front-git-chouchene-choucheneeees-projects.vercel.app/login
 ---
+
 ##  Default Admin User
 To log in as the default administrator, use the following credentials:
 
@@ -13,7 +36,7 @@ To log in as the default administrator, use the following credentials:
     Password: 12345
 ---
 ##  Frontend Repository
-The frontend for this project is available here: [YEngineers Frontend Repository](https://young-engineers-front-git-chouchene-choucheneeees-projects.vercel.app/login)
+The frontend for this project is available here: [YEngineers Frontend Repository](https://github.com/Choucheneeee/Young-Engineers-Front.git)
 
 ## Features
 
