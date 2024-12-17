@@ -88,7 +88,7 @@ To log in as the default administrator, use the following credentials:
 
 3. Create a `.env` file in the root directory and add the following:
    ```env
-   PORT=5000
+   PORT=5001
    MONGO_URI=mongodb://localhost:27017/YEngineers
    JWT_SECRET=your_secret_key
    ```
