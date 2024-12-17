@@ -6,8 +6,6 @@ const connectDB = require("./config/db");
 
 //Routes
 const userRoutes = require("./routes/userRoutes");
-const path = require('path');
-
 const childRoutes = require("./routes/childRoutes");
 const groupRoutes = require("./routes/groupRoutes");
 const programRoutes = require("./routes/programRoutes");
@@ -20,9 +18,6 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-
-app.use('/apidoc', express.static(path.join(__dirname, 'apidoc')));
-
 
 // Database Connection
 connectDB();
