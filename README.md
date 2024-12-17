@@ -1,9 +1,16 @@
 # YEngineers
 
-This is the backend for the **YEngineers**, built with **MongoDB**  **Express.js** and **ReactJS** **Node.js**. The application helps administrators manage children, parents, groups, programs, attendance, and payments for educational activities in a structured and efficient way.
+This is the Fullstack Application for YEngineers, built with MongoDB, Express.js, ReactJS, and Node.js. The application helps administrators manage children, parents, groups, programs, attendance, and payments for educational activities in a structured and efficient way.
+---
+
+##  Frontend Repository
+The frontend for this project is available here: [YEngineers Frontend Repository](https://github.com/Choucheneeee/Young-Engineers-Front.git)
 
 ---
 
+##  Live Demo
+Access the application here: https://young-engineers-front-git-chouchene-choucheneeees-projects.vercel.app/login
+---
 
 ## Project Timeline
 
@@ -25,8 +32,6 @@ This project was completed within an impressive 12-hour timeframe through effici
 
         Chouchen Med Amine: Managed and executed the deployment of the full-stack application.(Frontend,Backend,Database)
 
-##  Live Demo
-Access the application here: https://young-engineers-front-git-chouchene-choucheneeees-projects.vercel.app/login
 ---
 
 ##  Default Admin User
@@ -35,9 +40,6 @@ To log in as the default administrator, use the following credentials:
     Email: admin@gmail.com
     Password: 12345
 ---
-##  Frontend Repository
-The frontend for this project is available here: [YEngineers Frontend Repository](https://github.com/Choucheneeee/Young-Engineers-Front.git)
-
 ## Features
 
 ### Admin Features
